@@ -47,10 +47,12 @@ def process_data(data):
         output.append(elf_total)
     output = sorted(output, reverse=True)
 
-    return output[0]
+    return output[0:3]
 
 def display_output(output):
     print(f"The elf carrying the most calories is carrying {output} calories")
+    topthreetotal = sum(output)
+    print(f"The total of the top three elves is {topthreetotal}")
     return 
 
 # Main function:
