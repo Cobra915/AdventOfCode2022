@@ -15,6 +15,7 @@ def parse_input(fileName: str = ""):
     with open(file=fileName, mode='r') as fin:
         data = fin.read()
 
+    print(data)
     # Now that we have the data we output that data
     return data
 

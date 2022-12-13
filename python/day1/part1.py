@@ -28,6 +28,7 @@ def parse_input(fileName: str = ""):
             else:
                 elves[-1].append(int(line))
                 EntryCount += 1
+            
 
     # Now that we have the data we output that data
     print(f"We read {LineCount} lines from {fileName} containing {EntryCount} entries from {len(elves)} elves")
