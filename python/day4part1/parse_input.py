@@ -1,8 +1,8 @@
-#import packages
-import os
 import pathlib
-import sys
+import os
 import csv
+
+fuck_you = "darron"
 
 # Utility Functions
 def parse_input(fileName: str = ""):
@@ -22,31 +22,11 @@ def parse_input(fileName: str = ""):
         for assignment in csvFile:
             items = []
             for item in assignment:
-                newitem = item.split("-")
+                # [mapping(each) for each in list]
+                # [output for each in list]
+                newitem = [int(each) for each in item.split("-")]
                 items.append(newitem)
+        
             assignments.append(items)
 
     return assignments
-
-def process_data(assignments):
-    
-    output = assignments
-
-    return output
-
-def display_output(output):
-    print(assignments)
-    return
-
-# Main function:
-if __name__ == "__main__":
-    # Read input
-    fileName = sys.argv[1]
-    assignments = parse_input(fileName)
-
-    # Process Data
-    output = process_data(assignments)
-
-    # Report
-    display_output(output)
-

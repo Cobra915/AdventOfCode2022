@@ -34,10 +34,9 @@ def process_data(elf_groups):
     groupmatch = []
     for sack in elf_groups:
         for letter in sack[0]:
-            if letter in sack[1]:
-                if letter in sack[2]:
-                    groupmatch.append(letter)
-                    break
+            if letter in sack[1] and letter in sack[2]:
+                groupmatch.append(letter)
+                break
 
     return groupmatch
 
