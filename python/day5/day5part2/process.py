@@ -1,30 +1,53 @@
-import csv
+import re
 
-def is_subset(outer, inner):
-    # a <= b <= B <= A
-    return outer[0] <= inner[0] <= inner[-1] <= outer[-1]
+def process_data(instructions):
 
-def is_overlap(left,right):
-    return is_subset(left,right) or is_subset(right,left)
+    matrix = [
+        [],
+        ['B', 'P', 'N', 'Q', 'H', 'D', 'R', 'T'],
+        ['W', 'G', 'B', 'J', 'T', 'V'],
+        ['N', 'R','H', 'D', 'S', 'V', 'M', 'Q'],
+        ['P', 'Z', 'N', 'M', 'C',],
+        ['D', 'Z', 'B',],
+        ['V', 'C', 'W', 'Z'],
+        ['G', 'Z', 'N', 'C', 'V', 'Q', 'L', 'S'],
+        ['L', 'G', 'J', 'M', 'D', 'N', 'V'],
+        ['T', 'P', 'M', 'F', 'Z', 'C', 'G']
+    ]
 
-def process_data(assignments):
-    # Running sum of all lists that are totally contained
-    eclipse_count = 0
-    for assignment in assignments:
-        eclipse_count += is_overlap(assignment[0],assignment[1])
+    '''
+    matrix = [
+        [],
+        ['Z', 'N'],
+        ['M', 'C', 'D'],
+        ['P']
+	]
 
-    return eclipse_count
+    '''
 
-"""
-def takes4(a,b,c,d):
-    print(a,b,c,d)
+    linecount = 0
 
-l = [1,2,3,4]
+    pattern = "move (?P<x>\d+) from (?P<Source>\d+) to (?P<Destination>\d+)"
+    for line in instructions:
+        #print(line)
+        linecount += 1
+        match = re.match(pattern, line)
+        x = int(match.group('x'))
+        s = int(match.group('Source'))
+        d = int(match.group('Destination'))
+        focus = matrix[s][-x:]
+        #print(f"Moving {focus} from {s} to {d}")
+        del matrix[s][-x:]
+        matrix[d] = matrix[d] + focus
+        #print(linecount)
+        #print(matrix[d])
+        
+        """
+        move 1 from 2 to 1
+        move 3 from 1 to 3
+        move 2 from 2 to 1
+        move 1 from 1 to 2
+        """
 
-d = {"b":1, "c":2, "a":3, "d":4}
+    return matrix
 
-takes4(l[0],l[1],l[2],l[3])
-
-takes4(*l)  # takes4(l[0],l[1],l[2],l[3])
-takes4(**d) # takes4(a=3,b=1,c=2,d=4)
-"""

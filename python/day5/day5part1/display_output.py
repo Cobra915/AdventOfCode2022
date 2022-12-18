@@ -1,6 +1,9 @@
 def display_output(output):
-    """
-    TODO
-    """
-    print(output)
+
+    display = ""
+
+    for column in range(1, len(output)):
+        display = display + output[column][-1]
+
+    print(display)
     return

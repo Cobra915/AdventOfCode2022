@@ -2,8 +2,6 @@ import pathlib
 import os
 import csv
 
-fuck_you = "darron"
-
 # Utility Functions
 def parse_input(fileName: str = ""):
     """
