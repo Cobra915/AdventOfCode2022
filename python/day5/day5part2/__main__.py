@@ -28,7 +28,6 @@ if __name__ == "__main__":
         parse instruction and identify components, "Move [x] from [source] to [destination]", use regex to extract x, s, and d from the fixed raw text
         where x = number of crates, s = source given minus 1 (for indexing) and d = destionation minus 1 for indexing
 
-        based on number of crates to move, enter for loop.
         index source list and get identities of crates to remove, focus = MATRIX[SOURCENUMBER][-x:]
         store those values as a temporary list, focus = Matrix[s][-x:]
         Remove those values from the end of source list, del matrix[s][-x:]
