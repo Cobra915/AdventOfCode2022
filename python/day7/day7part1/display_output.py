@@ -1,7 +1,9 @@
+import pprint
+
 def display_output(output):
 
     display = output
 
-    print(display)
+    pprint.pprint(display)
 
     return

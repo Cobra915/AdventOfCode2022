@@ -24,6 +24,7 @@ def process_commands(inputs):
                 "Command": line.split("$")[1].strip(), 
                 "Output" : [],
             })
+            
         else:
             commands[-1]['Output'].append(line)
 

@@ -49,7 +49,6 @@ if __name__ == "__main__":
     fileName = sys.argv[1]
     file = extract.parse_input(fileName)
     data = extract.process_commands(file)
-    print(data)
     # Process Data
     output = transform.process_data(data)
 
