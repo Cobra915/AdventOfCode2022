@@ -1,37 +1,92 @@
-import os
-import pathlib
-import sys
-import csv
-import string
+import pprint
 
-feed = [['2-4', '6-8'], ['2-3', '4-5'], ['5-7', '7-9'], ['2-8', '3-7'], ['6-6', '4-6'], ['2-6', '4-8']]
-
-        
-def process_data(feed):
-    items = []
-    assignments = []
-    for assignment in assignments:
-        print(f"assignment: {assignment}")
-        for item in assignment:
-            print(f"item: {item}")
-            print(f"Item Type: {type(item)}")
-            newitem = item.split("-")
-            items.append(newitem)
-            assignments.append(items)
-    print(assignments)
-    return assignments
+commands = [{'Command': 'cd /', 'Output': []},
+    {'Command': 'ls', 'Output': ['dir a', '14848514 b.txt', '8504156 c.dat', 'dir d']},
+    {'Command': 'ls', 'Output': ['dir e', '29116 f', '2557 g', '62596 h.lst']},
+    {'Command': 'cd e', 'Output': []},
+    {'Command': 'ls', 'Output': ['584 i']},
+    {'Command': 'cd ..', 'Output': []},
+    {'Command': 'cd ..', 'Output': []},
+    {'Command': 'cd d', 'Output': [], 'Output': ['4060174 j', '8033020 d.log', '5626152 d.ext', '7214296 k']}]
 
 
-def display_output(output):
-    print(assignments)
-    return
+def create_folder(name: str, parent: dict = None) -> dict:
+    """
+    Create a folder with the given <name>, and optionally link to a <parent> folder
+    """
+    return {
+        "parent": parent,
+        "name": name,
+        "subfolders": [],
+        "localfiles": [],
+        "size": None,
+    }
 
-# Main function:
-if __name__ == "__main__":
-    # Read input
+def add_child(parent: dict, name: str) -> dict:
+    """
+    Start: only have the parent folder
+    -------
+    foo = {
+        "parent": whocares,
+        "name": "COLIN",
+        "subfolders": {}
+    }
+    """
+    # Step 1: create a new folder, with a reference to the parent
+    newfolder = create_folder(name)
+    newfolder["parent"] = parent
+    """
+    After Step 1:
+    -------------
+     foo = {
+        "parent": whocares,
+        "name": "COLIN",
+        "subfolders": {}
+    }
+    child = {
+        "parent": foo,
+        "name": "MITCH",
+        "subfolders": {}
+    }
 
-    # Process Data
-    output = process_data(assignments)
+    """
+    # Step 2: add that new folder to the parent's children
+    parent["subfolders"][name] = newfolder
+    """
+    foo = {
+        "parent": whocares,
+        "name": "COLIN",
+        "subfolders": {"MITCH":child}
+    }
+    child = {
+        "parent": foo,
+        "name": "MITCH",
+        "subfolders": {}
+    }
 
-    # Report
-    display_output(output)
+    """
+    return newfolder
+
+def add_child(parent: dict, name: str) -> dict:
+    parent["subfolders"][name] = create_folder(name, parent)
+    return parent["subfolders"][name]
+
+"""
+test = create_folder(name="/")
+print(test["parent"])
+sub = create_folder(name="a",parent=test)
+print(sub["parent"])
+print(sub["parent"] == test)
+"""
+d = {}
+d['new'] = 1
+d['new2'] = 2
+d['new2'] = 4
+d["subdict"] ={"a":4}
+d["subdict"]["new"] = 12
+
+d["subdict"]["parent"] = d
+
+pprint.pprint(d)
+pprint.pprint(d == d["subdict"]["parent"])
+pprint.pprint(id(d))
